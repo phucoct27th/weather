@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+        xmlns:tools="http://schemas.android.com/tools"
+        package="phuc.asdtm.goodweather"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:name="phuc.asdtm.goodweather.GoodWeatherApp"
+        android:icon="@mipmap/ic_launcher"
+        android:installLocation="internalOnly"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppThemeLight">
+        <activity
+            android:name="phuc.asdtm.goodweather.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="phuc.asdtm.goodweather.SettingsActivity"
+            android:label="@string/nav_menu_settings"
+            android:parentActivityName="phuc.asdtm.goodweather.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="phuc.asdtm.goodweather.MainActivity"/>
+        </activity>
+        <activity
+            android:name="phuc.asdtm.goodweather.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName="phuc.asdtm.goodweather.MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="phuc.asdtm.goodweather.MainActivity"/>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+        <activity
+            android:name="phuc.asdtm.goodweather.WeatherForecastActivity"
+            android:label="@string/label_activity_weather_forecast"
+            android:parentActivityName="phuc.asdtm.goodweather.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="phuc.asdtm.goodweather.MainActivity"/>
+        </activity>
+        <activity
+            android:name="phuc.asdtm.goodweather.GraphsActivity"
+            android:label="@string/label_activity_graphs"
+            android:parentActivityName="phuc.asdtm.goodweather.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="phuc.asdtm.goodweather.MainActivity"/>
+        </activity>
+        <activity
+                android:name="phuc.asdtm.goodweather.LicenseActivity"
+                android:exported="false"
+                tools:ignore="GoogleAppIndexingUrlError">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data
+                    android:pathPrefix="/android_asset/licenses/"
+                    android:scheme="file"/>
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="phuc.asdtm.goodweather.receiver.StartupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="phuc.asdtm.goodweather.widget.LessWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+                <action android:name="phuc.asdtm.goodweather.action.FORCED_APPWIDGET_UPDATE"/>
+                <action android:name="phuc.asdtm.goodweather.action.APPWIDGET_THEME_CHANGED"/>
+                <action android:name="phuc.asdtm.goodweather.action.APPWIDGET_UPDATE_PERIOD_CHANGED"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_less"/>
+        </receiver>
+        <receiver android:name="phuc.asdtm.goodweather.widget.MoreWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+                <action android:name="phuc.asdtm.goodweather.action.FORCED_APPWIDGET_UPDATE"/>
+                <action android:name="phuc.asdtm.goodweather.action.APPWIDGET_THEME_CHANGED"/>
+                <action android:name="phuc.asdtm.goodweather.action.APPWIDGET_UPDATE_PERIOD_CHANGED"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_more"/>
+        </receiver>
+
+        <service android:name="phuc.asdtm.goodweather.service.NotificationService"/>
+        <service android:name="phuc.asdtm.goodweather.widget.LessWidgetService"/>
+        <service android:name="phuc.asdtm.goodweather.widget.MoreWidgetService"/>
+        <service android:name="phuc.asdtm.goodweather.service.CurrentWeatherService"/>
+        <service android:name="phuc.asdtm.goodweather.service.LocationUpdateService" />
+    </application>
+</manifest>
